@@ -16,7 +16,6 @@ jobs:
           command: |
             go get github.com/aws/aws-lambda-go/lambda
             GOOS=linux go build main.go
-      - aws-cli/install
       - aws-cli/setup:
           aws-region: AWS_REGION
           aws-access-key-id: AWS_ACCESS_KEY_ID
