@@ -28,7 +28,7 @@ workflows:
   deploy_sportsbook_scraper:
     jobs:
       - deploy:
-          context: SPORTSBOOK_SCRAPER
+          context: PARLAY_GENERATOR
           filters:
             branches:
               only:
