@@ -1,0 +1,35 @@
+version: 2.1
+orbs:
+  aws-cli: circleci/aws-cli@1.3.2
+  jq: circleci/jq@2.2.0
+
+jobs:
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: |
+            go get github.com/aws/aws-lambda-go/lambda
+            GOOS=linux go build main.go
+      - aws-cli/setup:
+          aws-region: AWS_REGION
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+      - jq/install
+      - run:
+          name: Deploy to AWS
+          command: |
+            chmod +x ./deploy.sh
+            ./deploy.sh
+
+workflows:
+  deploy_sportsbook_scraper:
+    jobs:
+      - deploy:
+          context: SPORTSBOOK_SCRAPER
+          filters:
+            branches:
+              only:
+                - main
