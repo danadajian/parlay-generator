@@ -3,7 +3,7 @@
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 FILE_NAME="parlay-generator-$TIMESTAMP.zip"
 
-zip -r -qq "$FILE_NAME" main
+zip -r -qq "$FILE_NAME" src/main
 echo "### Zipped $FILE_NAME successfully."
 
 if aws lambda get-function --function-name ParlayGeneratorFunction; then
